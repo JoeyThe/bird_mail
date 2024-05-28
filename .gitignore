@@ -1,0 +1,15 @@
+# .baks
+*.bak
+
+# Ignore venv except for requirements.txt
+venv/*
+!venv/requirements.txt
+
+# eBird token
+ebird_token.txt
+
+# Gmail tokens
+gmail/*.json
+
+# pycache
+__pycache__
