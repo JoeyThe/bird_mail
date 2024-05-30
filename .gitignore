@@ -13,3 +13,6 @@ gmail/*.json
 
 # pycache
 __pycache__
+
+# ebird test files
+ebird/*_test*
