@@ -37,6 +37,8 @@ class GmailWrapper:
             # Save the credentials for the next run
             with open(TOKEN_PATH, "w") as token:
                 token.write(self.creds.to_json())
+            print("Credentials generated, exiting application. Please run again.")
+            exit(0)
     
     def send_gmail_message(self, content: str, to_addr: str, subject: str):
         try:
