@@ -1,18 +1,15 @@
 import base64
-from email.message import EmailMessage
 import os
+from email.message import EmailMessage
 
-import google.auth
+from google.auth.transport.requests import Request
+from google.oauth2.credentials import Credentials
+from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
-from google.oauth2.credentials import Credentials
-from google.auth.transport.requests import Request
-from google_auth_oauthlib.flow import InstalledAppFlow
 
+SCOPES = ["https://mail.google.com/"]
 
-SCOPES = [
-    "https://mail.google.com/"
-]
 
 class GmailWrapper:
     def __init__(self):
@@ -30,16 +27,14 @@ class GmailWrapper:
             if self.creds and self.creds.expired and self.creds.refresh_token:
                 self.creds.refresh(Request())
             else:
-                flow = InstalledAppFlow.from_client_secrets_file(
-                    CRED_PATH, SCOPES
-                )
+                flow = InstalledAppFlow.from_client_secrets_file(CRED_PATH, SCOPES)
                 self.creds = flow.run_local_server(port=0)
             # Save the credentials for the next run
             with open(TOKEN_PATH, "w") as token:
                 token.write(self.creds.to_json())
             print("Credentials generated, exiting application. Please run again.")
             exit(0)
-    
+
     def send_gmail_message(self, content: str, to_addr: str, subject: str):
         try:
             service = build("gmail", "v1", credentials=self.creds)
@@ -56,12 +51,7 @@ class GmailWrapper:
 
             create_message = {"raw": encoded_message}
             # pylint: disable=E1101
-            send_message = (
-                service.users()
-                .messages()
-                .send(userId="me", body=create_message)
-                .execute()
-            )
+            send_message = service.users().messages().send(userId="me", body=create_message).execute()
         except HttpError as error:
             print(f"An error occurred: {error}")
             send_message = None
