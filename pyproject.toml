@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "turd-bird"
+description = "Bird app"
+authors = ["Turd"]
+version = "0.0.1"
+packages = [{ include = "src" }]
+
+[tool.poetry.dependencies]
+python = ">=3.10"
+
+[tool.ruff]
+line-length = 120
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
