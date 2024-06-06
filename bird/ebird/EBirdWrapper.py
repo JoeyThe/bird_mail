@@ -25,8 +25,9 @@ class EBirdWrapper:
         url = f"https://api.ebird.org/v2/data/obs/{region_code}/recent/{species_code}"
         if debug:
             headers["X-eBirdApiToken"] = "*********"
+            data = []
             print(f"URL: {url}\n" + f"Parameters: {params}\n" + f"Headers: {headers}")
-            return None
+            return data
         r = requests.get(url, headers=headers, params=params)
         data = r.json()
         if len(data) == 0:

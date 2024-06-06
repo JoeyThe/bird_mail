@@ -13,8 +13,8 @@ SCOPES = ["https://mail.google.com/"]
 
 class GmailWrapper:
     def __init__(self):
-        TOKEN_PATH = "/home/joey/bird_mail/gmail/token.json"
-        CRED_PATH = "/home/joey/bird_mail/gmail/credentials.json"
+        TOKEN_PATH = os.path.join(os.path.realpath(__file__).replace(os.path.realpath(__file__).split("/")[-1], ""), "token.json")
+        CRED_PATH = os.path.join(os.path.realpath(__file__).replace(os.path.realpath(__file__).split("/")[-1], ""), "credentials.json")
         self.FROM_ADDR = "joseph.girardini@gmail.com"
         self.creds = None
         # The file token.json stores the user's access and refresh tokens, and is

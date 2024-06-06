@@ -5,14 +5,13 @@ import time
 import traceback
 from datetime import datetime, timezone
 from collections import defaultdict
-# We'll fix thisP
-from EBirdWrapper import EBirdWrapper
-from GmailWrapper import GmailWrapper
+from bird.ebird.EBirdWrapper import EBirdWrapper
+from bird.gmail.GmailWrapper import GmailWrapper
 
 
 REGION_CODE = "US-CA-037"
 
-if __name__ == "__main__":
+def main():
     # Let's update this
     SERVICE_FILE_PATH = os.path.realpath(__file__).replace(os.path.realpath(__file__).split("/")[-1], "")
 
@@ -57,7 +56,7 @@ if __name__ == "__main__":
                 )
 
                 for email in emails:
-                    results[email] += results
+                    result_map[email] += results
 
             # Loop through data map, send emails
             for email in result_map:
@@ -70,7 +69,7 @@ if __name__ == "__main__":
                         for field in result:
                             content += field + " : " + str(result[field]) + "\n"
                         content += "\n"
-                subject = f"Bird data on {datetime.now(timezone.utc).isoformat()}"
+                subject = datetime.now().strftime('Bird data on %m/%d/%Y at %H:%M')
                 gmail_result = gmail_obj.send_gmail_message(content, to_addr, subject)
                 print(f"Gmail sent:\n{gmail_result}")
             # Make this a cron ...
