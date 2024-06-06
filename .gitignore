@@ -8,14 +8,16 @@ error.txt
 venv/*
 !venv/requirements.txt
 
-# eBird token
-ebird_token.txt
+# eBird things
+bird/ebird_token.txt
+bird/ebird/*_test*
 
-# Gmail tokens
-gmail/*.json
+# Gmail things
+bird/gmail/*.json
+
+# service things
+bird/service/ebird_token.txt
+bird/service/mailing_list.json
 
 # pycache
 __pycache__
-
-# ebird test files
-ebird/*_test*
